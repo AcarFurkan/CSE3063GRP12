@@ -1,0 +1,163 @@
+MARMARA UNIVERSITY
+ENGINEERING DEPARTMENT
+COMPUTER ENGINEERING
+-------------------------------
+Year 1: Semester 1
+-------------------------------
+1. Course: Introduction to Modern Biology
+   Course Code: BIO101
+   ECTS: 6
+2. Course: Introduction to Computer Engineering
+   Course Code: CE101
+   ECTS: 7
+3. Course: Computer Programming I
+   Course Code: CP101
+   ECTS: 6
+4. Course: Calculus I
+   Course Code: MA101
+   ECTS: 8
+5. Course: Physics I
+   Course Code: PHY101
+   ECTS: 7
+6. Course: Physics Lab I
+   Course Code: PHYL101
+   ECTS: 3
+-------------------------------
+Year 1: Semester 2
+-------------------------------
+1. Course: Computer Programming II
+   Course Code: CP201
+   ECTS: 6
+2. Course: Calculus II
+   Course Code: MA201
+   ECTS: 8
+3. Course: Linear Algebra for Computer Engineering
+   Course Code: LACE201
+   ECTS: 7
+4. Course: Physics II
+   Course Code: PHY202
+   ECTS: 7
+5. Course: Physics Lab II
+   Course Code: PHYL202
+   ECTS: 3
+-------------------------------
+Year 2: Semester 1
+-------------------------------
+1. Course: Discrete Computational Structures
+   Course Code: DCS301
+   ECTS: 6
+2. Course: Data Structures
+   Course Code: DS301
+   ECTS: 7
+3. Course: Engineering Economy
+   Course Code: ECON301
+   ECTS: 6
+4. Course: Electric Circuits
+   Course Code: ECIR301
+   ECTS: 7
+5. Course: Differential Equations
+   Course Code: DIFFEQ301
+   ECTS: 8
+6. Course: Numerical Methods
+   Course Code: NUM301
+   ECTS: 6
+-------------------------------
+Year 2: Semester 2
+-------------------------------
+1. Course: Analysis of Algorithms
+   Course Code: ALGO401
+   ECTS: 7
+2. Course: Systems Programming
+   Course Code: SYSPROG401
+   ECTS: 7
+3. Course: Principles of Programming Languages
+   Course Code: PPL401
+   ECTS: 6
+4. Course: Electronics
+   Course Code: ELEC401
+   ECTS: 7
+5. Course: Introduction to Probability and Statistics
+   Course Code: STAT401
+   ECTS: 6
+-------------------------------
+Year 3: Semester 1
+-------------------------------
+1. Course: Summer Practice I
+   Course Code: SP101
+   ECTS: 5
+2. Course: Digital Logic Design
+   Course Code: DLD201
+   ECTS: 6
+3. Course: Operating Systems
+   Course Code: OS301
+   ECTS: 7
+4. Course: Database Systems
+   Course Code: DBS301
+   ECTS: 6
+5. Course: Object-Oriented Software Design
+   Course Code: OOSD401
+   ECTS: 7
+6. Course: Modeling and Discrete Simulation
+   Course Code: MDS401
+   ECTS: 6
+-------------------------------
+Year 3: Semester 2
+-------------------------------
+1. Course: Computer Organization
+   Course Code: CO401
+   ECTS: 7
+2. Course: Software Engineering
+   Course Code: SE401
+   ECTS: 7
+3. Course: Introduction to Signals and Systems
+   Course Code: ISS401
+   ECTS: 6
+4. Course: Formal Languages and Automata Theory
+   Course Code: FLAT401
+   ECTS: 7
+5. Course: Operations Research
+   Course Code: OR401
+   ECTS: 6
+6. Course: Technical Communication and Entrepreneurship
+   Course Code: TCE401
+   ECTS: 6
+-------------------------------
+Year 4: Semester 1
+-------------------------------
+1. Course: Summer Practice II
+   Course Code: SP102
+   ECTS: 5
+2. Course: Computer Networks
+   Course Code: CN401
+   ECTS: 7
+3. Course: Principles of Embedded System Design
+   Course Code: ESD401
+   ECTS: 6
+4. Course: Engineering Project I
+   Course Code: EPI401
+   ECTS: 6
+5. Course: Introduction to Machine Learning
+   Course Code: ML401
+   ECTS: 6
+6. Course: Technical Elective - 1
+   Course Code: TE101
+   ECTS: 6
+-------------------------------
+Year 4: Semester 2
+-------------------------------
+1. Course: Engineering Project II
+   Course Code: EPII401
+   ECTS: 6
+2. Course: Faculty Technical Electives
+   Course Code: FTE401
+   ECTS: Variable
+3. Course: Technical Elective - 2
+   Course Code: TE102
+   ECTS: 6
+4. Course: Technical Elective - 3
+   Course Code: TE103
+   ECTS: 6
+5. Course: Technical Elective - 4
+   Course Code: TE104
+   ECTS: 6
+-------------------------------

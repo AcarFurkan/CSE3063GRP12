@@ -1,0 +1,27 @@
+5. Semester
+Summer Practice I
+Digital Logic Design
+Operating Systems
+Database Systems
+Object-Oriented Software Design
+Modeling and Discrete Simulation
+6. Semester
+Computer Organization
+Software Engineering
+Introduction to Signals and Systems
+Formal Languages and Automata Theory
+Operations Research
+Technical Comm. and Entrepreneurship
+7. Semester
+Summer Practice II
+Computer Networks
+Principles of Embedded System Design
+Engineering Project I
+Introduction to Machine Learning
+Technical Elective - 1
+8. Semester
+Engineering Project II
+Faculty Technical Electives
+Technical Elective - 2
+Technical Elective - 3
+Technical Elective - 4

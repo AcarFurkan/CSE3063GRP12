@@ -1,0 +1,26 @@
+1. Semester
+Introduction to Modern Biology
+Introduction to Computer Engineering
+Computer Programming I
+Calculus I
+Physics I
+Physics Lab I
+2. Semester
+Computer Programming II
+Calculus II
+Linear Algebra for Computer Engineering
+Physics II
+Physics Lab II
+3.Semester
+Discrete Computational Structures
+Data Structures
+Engineering Economy
+Electric Circuits
+Differential Equations
+Numerical Methods
+4.Semester
+Analysis of Algorithms
+Systems Programming
+Principles of Programming Languages
+Electronics
+Introduction to Probability and Statistics	
