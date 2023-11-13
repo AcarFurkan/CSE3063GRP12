@@ -1,0 +1,3 @@
+public void showTranscript(Transcript) {
+    
+}
