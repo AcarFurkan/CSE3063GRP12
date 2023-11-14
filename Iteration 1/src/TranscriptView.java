@@ -1,3 +1,0 @@
-public void showTranscript(Transcript) {
-    
-}
