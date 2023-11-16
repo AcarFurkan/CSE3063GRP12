@@ -5,7 +5,7 @@ public class TranscriptController {
 
     public TranscriptController() {
         this.transcriptView = new TranscriptView();
-        this.transcriptRepository = new TranscriptRepository(this);
+        this.transcriptRepository = new TranscriptRepository();
     }
 
     private Transcript fetchTranscript(String transcriptId) {

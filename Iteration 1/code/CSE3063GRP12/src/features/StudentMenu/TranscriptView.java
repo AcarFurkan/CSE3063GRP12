@@ -1,5 +1,7 @@
-public void class showTranscript(Transcript transcript) {
+public class TranscriptView {
     // Placeholder implementation -> display the transcript
-
+    public void showTranscript () {
+        
+    }
     // later...
 }
