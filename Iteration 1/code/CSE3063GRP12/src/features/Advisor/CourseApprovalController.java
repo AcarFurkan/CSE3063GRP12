@@ -47,10 +47,12 @@ public class CourseApprovalController {
         }
     }
 
-    private void navigateToApprovalCoursesSelected(CourseEnrollment courseEnrollment){}
+    private void navigateToApprovalCoursesSelected(CourseEnrollment courseEnrollment){
+        new ApprovalCoursesSelected(courseEnrollment);
+    }
 
     private void navigateToMenu(){
-        return new MenuController();
+        new MenuController();
     }
 
     private void handleApprovalController(){
