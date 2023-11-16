@@ -27,9 +27,9 @@ public class AdvisorStudentListController {
 
     private void handleStudentList(){
         while(true){
-            System.out.printf("Type \"Quit\" to see the menu\n Type \"Show\" to see the student list");
+            System.out.printf("Type \"q\" to see the menu\n Type \"Show\" to see the student list");
             String input = getUserInput();
-            if(input.equals("Quit")){
+            if(input.equals("q")){
                 navigateToMenu();
                 break;
             } else if (input.equals("Show")) {
