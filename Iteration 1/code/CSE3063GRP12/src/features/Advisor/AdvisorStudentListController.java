@@ -3,6 +3,7 @@ package features.Advisor;
 import core.general_providers.TerminalManager;
 import core.general_providers.SessionController;
 import core.models.concretes.Advisor;
+import core.main_menu.MenuController;
 
 
 public class AdvisorStudentListController {
@@ -16,7 +17,7 @@ public class AdvisorStudentListController {
 
 
     private void navigateToMenu(){
-        return new MenuController();
+        new MenuController();
     }
 
     private String getUserInput(){
