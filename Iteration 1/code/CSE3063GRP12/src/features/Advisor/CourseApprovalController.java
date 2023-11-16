@@ -24,13 +24,13 @@ public class CourseApprovalController {
     }
 
     private int getUserSelection() {
-        System.out.printf("Type \"Quit\" to see the menu\nType Student Id to process course enrollment");
+        System.out.printf("Type \"q\" to see the menu\nType Student Id to process course enrollment");
         ArrayList<CourseEnrollment> courseEnrollmentList = fetchPendingEnrollments();
         courseApprovalView.showPendingCourseEnrollments(courseEnrollmentList);
         String input = TerminalManager.getInstance().read();
         TerminalManager.getInstance().dispose();
         try{
-            if(input.equals("Quit")){
+            if(input.equals("q")){
                 return -1;
             }
             else{
