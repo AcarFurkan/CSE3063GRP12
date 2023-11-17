@@ -16,14 +16,13 @@
         "id": "1",
         "listOfSemester": [
             {
-                "id": "0",
+                "id": "1",
                 "listOfCoursesTaken": {
-                    "CSE1223": "NON",
-                    "CSE2055": "NON",
-                    "CSE3063": "NON"
+                    "CSE2055": "BB",
+                    "CSE3063": "AA"
                 },
-                "creditsTaken": 9,
-                "yano": 0.0
+                "creditsTaken": 1,
+                "yano": 1.0
             }
         ],
         "gano": 1.0,
@@ -31,8 +30,8 @@
         "totalCreditCompleted": 1,
         "currentSemester": 1
     },
-    "userName": "o150121534",
-    "password": "123123",
-    "firstName": "furkan",
-    "lastName": "acar"
+    "userName": "o1",
+    "password": "123",
+    "firstName": "ömer",
+    "lastName": "atli"
 }

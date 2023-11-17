@@ -3,6 +3,7 @@
         "lib/**/*.jar",
         "c:\\Users\\omer\\Downloads\\gson-2.10.1.jar",
         "/Users/furkanacar/Downloads/gson-2.8.6.jar",
-        "c:\\Users\\ogeys\\Downloads\\gson-2.10.1.jar"
+        "c:\\Users\\ogeys\\Downloads\\gson-2.10.1.jar",
+        "/Users/furkanacar/Downloads/junit-4.13.2-javadoc.jar"
     ]
 }
