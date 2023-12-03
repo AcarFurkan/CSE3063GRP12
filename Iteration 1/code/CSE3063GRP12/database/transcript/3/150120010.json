@@ -1,0 +1,81 @@
+{
+  "Header": {
+    "University Name": "MARMARA UNIVERSITY",
+    "Document Type": "OFFICIAL ACADEMIC RECORD",
+    "Student Type": "Transcript for Engineering Student"
+  },
+  "Personal Information": {
+    "Citizenship Id": "111222333",
+    "First Name": "Jack",
+    "Last Name": "Johnson",
+    "E-Mail": "johnson.jack@gmail.com",
+    "Birthdate": "7/12/2001",
+    "Age": "22 yrs",
+    "Area": "Istanbul"
+  },
+  "Academic Information": {
+    "Faculty / School": "Faculty of Engineering",
+    "Department / Program": "Computer Engineering",
+    "Student Id": "o150120010",
+    "transcriptId":"id10",
+    "Area": "Istanbul",
+    "Education Level": "Bachelor",
+    "Education Language": "English",
+    "Registration Date": "15/09/2021",
+    "Graduation Date": "---",
+    "1.Semester": {
+      "[2021 - 2022] Fall": {
+        "Year 1: Semester 1": {
+          "1. Course: Introduction to Modern Biology": {"Course Code": "MBG1201", "ECTS": 5, "Grade": "AA"},
+          "2. Course: Introduction to Computer Engineering": {"Course Code": "CSE1200", "ECTS": 4, "Grade": "BB"},
+          "3. Course: Computer Programming I": {"Course Code": "CSE1241", "ECTS": 6, "Grade": "AA"},
+          "4. Course: Calculus I": {"Course Code": "MATH1001", "ECTS": 6, "Grade": "BB"},
+          "5. Course: Physics I": {"Course Code": "PHYS1101", "ECTS": 4, "Grade": "AA"},
+          "6. Course: Physics Lab I": {"Course Code": "PHYS1103", "ECTS": 2, "Grade": "BB"},
+          "Semester 1 -> GPA": 3.50,
+          "Overall GPA": 3.50
+        }
+      }
+    },
+    "2.Semester": {
+      "[2021 - 2022] Spring": {
+        "Year 1: Semester 2": {
+          "1. Course: Computer Programming II": {"Course Code": "CSE1242", "ECTS": 6, "Grade": "BB"},
+          "2. Course: Calculus II": {"Course Code": "MATH1002", "ECTS": 6, "Grade": "AA"},
+          "3. Course: Linear Algebra for Computer Engineering": {"Course Code": "MATH2256", "ECTS": 5, "Grade": "BB"},
+          "4. Course: Physics II": {"Course Code": "PHYS1102", "ECTS": 4, "Grade": "AA"},
+          "5. Course: Physics Lab II": {"Course Code": "PHYS1104", "ECTS": 2, "Grade": "AA"},
+          "Semester 2 -> GPA": 3.40,
+          "Overall GPA": 3.45
+        }
+      }
+    },
+    "3.Semester": {
+      "[2022 - 2023] Fall": {
+        "Year 2: Semester 1": {
+          "1. Course: Discrete Computational Structures": {"Course Code": "CSE2023", "ECTS": 6, "Grade": "BB"},
+          "2. Course: Data Structures": {"Course Code": "CSE2225", "ECTS": 7, "Grade": "AA"},
+          "3. Course: Engineering Economy": {"Course Code": "ECON2004", "ECTS": 4, "Grade": "BB"},
+          "4. Course: Electric Circuits": {"Course Code": "EE2031", "ECTS": 5, "Grade": "AA"},
+          "5. Course: Differential Equations": {"Course Code": "MATH2055", "ECTS": 4, "Grade": "BB"},
+          "6. Course: Numerical Methods": {"Course Code": "MATH2059", "ECTS": 4, "Grade": "AA"},
+          "Semester 3 -> GPA": 3.25,
+          "Overall GPA": 3.40
+        }
+      }
+    },
+    "4.Semester": {
+      "[2022 - 2023] Spring": {
+        "Year 2: Semester 2": {
+          "1. Course: Analysis of Algorithms": {"Course Code": "CSE2246", "ECTS": 7, "Grade": "AA"},
+          "2. Course: Systems Programming": {"Course Code": "CSE2138", "ECTS": 7, "Grade": "BB"},
+          "3. Course: Principles of Programming Languages": {"Course Code": "CSE2260", "ECTS": 6, "Grade": "AA"},
+          "4. Course: Electronics": {"Course Code": "EE2032", "ECTS": 5, "Grade": "BB"},
+          "5. Course: Probability and Statistics for Computer Engineering": {"Course Code": "STAT2253", "ECTS": 5, "Grade": "AA"},
+          "Semester 4 -> GPA": 3.60,
+          "Overall GPA": 3.50
+        }
+      }
+    }
+  }
+}
