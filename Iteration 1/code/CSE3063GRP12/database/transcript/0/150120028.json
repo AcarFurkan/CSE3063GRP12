@@ -1,0 +1,24 @@
+{
+  "StudentId": "o150120028",
+  "TranscriptId": "id28",
+  "listOfSemesters": {
+        "1": {
+            "listOfCoursesTakenInSemester": {
+            },
+            "creditsTaken": 0,
+            "yano": 0.0,
+            "gano": 0.0
+        },
+        "2": {
+            "listOfCoursesTakenInSemester": {
+            },
+            "creditsTaken": 0,
+            "yano": 0.0,
+            "gano": 0.0
+        }
+    },
+  "gano": 0.0,
+  "totalCreditTaken": 0,
+  "totalCreditCompleted": 0,
+  "currentSemester": 1
+}
