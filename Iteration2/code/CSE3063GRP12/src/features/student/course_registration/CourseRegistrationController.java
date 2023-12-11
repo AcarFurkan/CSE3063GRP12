@@ -103,7 +103,7 @@ public class CourseRegistrationController {
 		return courseRepository.getCoursesBySemester(semester);
 	}
 
-	private ArrayList<Course> arrangeCoursesForStudent(Transcript transcript, ArrayList<Course> currentSemesterCourseList) {
+	private ArrayList<Course> arrangeCoursesForStudent(Transcript transcript, ArrayList<Course> currentSemesterCourseList) throws IOException {
 		Map<Integer, Semester> semesters = transcript.getListOfSemesters();
 		ArrayList<Course> availableCourses = new ArrayList<>();
 
@@ -111,8 +111,11 @@ public class CourseRegistrationController {
 			if (semesters == null || semesters.values() == null || semesters.values().size() == 0) {
 				availableCourses.add(courseThisSemester);
 			} else {
+				ArrayList<Course> coursesToCheckQuota = new ArrayList<>();
+            	coursesToCheckQuota.add(courseThisSemester);
 				// Check if the course has prerequisites, and if the student has received FF or FD in any of them, add them to the list
-				if (courseThisSemester.getPrerequisites() != null && !courseThisSemester.getPrerequisites().isEmpty()) {
+				if (courseThisSemester.getPrerequisites() != null && !courseThisSemester.getPrerequisites().isEmpty()&&
+				checkQuota(coursesToCheckQuota)) {
 					addFailedPrerequisites(courseThisSemester.getPrerequisites(), semesters, availableCourses);
 				} 
 				// if the course does not have any prerequisites, add it
@@ -122,6 +125,24 @@ public class CourseRegistrationController {
 		return availableCourses;
 	}
 	
+	//Bu method currentQuotanın quotayı aşmadığını tespit edicek.
+	private boolean checkQuota(ArrayList<Course> selectedCourseList) throws IOException {
+		//courseRepository objecti oluşturduk.
+		CourseRepository courseRepository = new CourseRepository();
+	
+		for (Course selectedCourse : selectedCourseList) {
+			int quota = courseRepository.getQuota(selectedCourse.getCourseCode());
+			int currentQuota = courseRepository.getCurrentQuota(selectedCourse.getCourseCode());
+	
+			if (currentQuota >= quota) {
+				System.out.println("Quota is full for course: " + selectedCourse.getCourseCode());
+				return false;
+			}
+		}
+	
+		return true;
+	}
+
 	private void addFailedPrerequisites(ArrayList<Course> prerequisites, Map<Integer, Semester> semesters,
 					ArrayList<Course> availableCourses) {
 		for (Course prerequisite : prerequisites) {
@@ -129,7 +150,8 @@ public class CourseRegistrationController {
 				availableCourses.add(prerequisite); // Add each failed prerequisite
 			}
 		}
-}
+	}
+
 	private boolean hasFailedCourse(String courseCode, Map<Integer, Semester> semesters) {
 		CourseGrade grade;
 		for (Semester semester : semesters.values()) {

@@ -5,9 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.database.abstracts.DatabaseManager;
+import core.enums.ApprovalState;
+import core.exceptions.UserNotFoundException;
 import core.general_providers.AppConstant;
 import core.general_providers.InstanceManager;
+import core.general_providers.SessionController;
+import core.models.abstracts.User;
 import core.models.concretes.Course;
+import core.models.concretes.CourseEnrollment;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -55,6 +61,52 @@ public class CourseRepository {
         return courses;
     }
 
+    
+    public int getQuota(String courseCode) throws IOException {
+        Course course = findCourseByCode(courseCode);
+    
+        if (course != null) {
+                return course.getQuota();
+        } else {                // Hata fırlat
+            throw new IllegalArgumentException("Course with code " + courseCode + " not found.");
+            }
+        }
+    
+    public int getCurrentQuota(String courseCode) throws IOException {
+        Course course = findCourseByCode(courseCode);
+    
+        if (course != null) {
+            return course.getCurrentQuota();
+        } else {
+            // Hata fırlat.
+            throw new IllegalArgumentException("Course with code " + courseCode + " not found.");
+            }
+        }
+    
+    public Course findCourseByCode(String courseCode) throws IOException {
+            Path startPath = Paths.get(path);
+            try {
+                return Files.walk(startPath)
+                        .filter(Files::isRegularFile)
+                        .filter(path -> path.toString().endsWith(".json"))
+                        .filter(path -> path.getFileName().toString().contains(courseCode))
+                        .findFirst()
+                        .map(path -> {
+                            try {
+                                return databaseManager.read(path.toString(), Course.class);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                return null;
+                            }
+                        })
+                        .orElse(null);
+            } catch (IOException e) {
+                // e.printStackTrace();
+                return null;
+            }
+        }
+    
+
     public ArrayList<Course> findCoursesWithCourseIds(ArrayList<String> ids) {
 
         ArrayList<Course> matchedCourses = new ArrayList<>();
@@ -80,4 +132,29 @@ public class CourseRepository {
         return matchedCourses;
     }
 
+    public void updateCurrentQuota(CourseEnrollment courseEnrollment) throws IOException{
+    if (courseEnrollment.getApprovalState() == ApprovalState.Approved) {
+        ArrayList<Course> selectedCourses = courseEnrollment.getSelectedCourseList();
+
+        for (Course selectedCourse : selectedCourses) {
+            // Find the corresponding course in the repository
+            Course repositoryCourse = findCourseByCode(selectedCourse.getCourseCode());
+
+            // Update the currentQuota for the course in the repository
+            if (repositoryCourse != null) {
+                repositoryCourse.setCurrentQuota(repositoryCourse.getCurrentQuota() + 1);
+
+                // Save the updated course back to the repository
+                databaseManager.write(
+                        path + repositoryCourse.getSemester() + "/" + repositoryCourse.getCourseCode() + ".json",
+                        repositoryCourse);
+            } else {
+                System.out.println("Course with code " + selectedCourse.getCourseCode() + " not found in the repository.");
+            }
+        }
+    } else {
+        System.out.println("Student's enrollment is not approved by the advisor.");
+    }
+    }
+      
 }
