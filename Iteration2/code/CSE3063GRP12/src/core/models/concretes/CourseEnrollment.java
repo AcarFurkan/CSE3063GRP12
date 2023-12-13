@@ -17,6 +17,7 @@ public class CourseEnrollment {
         this.selectedCourseList = selectedCourseList;
         this.studentId = studentId;
         this.approvalState = approvalState;
+
     }
 
     // Getters

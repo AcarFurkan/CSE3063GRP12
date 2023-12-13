@@ -1,17 +1,1 @@
-{
-    "id": 4,
-    "courseCode": "MATH1001",
-    "name": "Calculus I",
-    "credit": 6,
-    "session": {
-        "id": "id4",
-        "courseSessions": {
-            "TUESDAY": ["three", "four"],
-            "THURSDAY": ["five", "six"],
-            "FRIDAY": ["seven", "eight"]
-        }
-    },
-    "prerequisites": [],
-    "quota": 30,
-    "semester": 1
-}
+{"id":"4","courseCode":"MATH1001","name":"Calculus I","credit":6,"session":{"id":"id4","courseSessions":{"TUESDAY":["three","four"],"THURSDAY":["five","six"],"FRIDAY":["seven","eight"]}},"prerequisites":[],"quota":1,"currentQuota":1,"semester":1}

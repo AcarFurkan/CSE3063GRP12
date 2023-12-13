@@ -3,6 +3,7 @@ package features.advisor.approval_courses_selected;
 import core.repositories.TranscriptRepository;
 import features.main_menu.MenuController;
 import core.repositories.CourseEnrollmentRepository;
+import core.repositories.CourseRepository;
 import core.models.concretes.Course;
 import core.models.concretes.CourseEnrollment;
 
@@ -21,12 +22,14 @@ public class ApprovalCoursesSelectedController {
     private CourseEnrollment currentCourseEnrollment;
     private CourseEnrollmentRepository courseEnrollmentRepository;
     private TranscriptRepository transcriptRepository;
+    private CourseRepository courseRepository;
 
     public ApprovalCoursesSelectedController(CourseEnrollment currentCourseEnrollment) {
         this.currentCourseEnrollment = currentCourseEnrollment;
         approvalCoursesSelectedView = new ApprovalCoursesSelectedView();
         courseEnrollmentRepository = new CourseEnrollmentRepository();
         transcriptRepository = new TranscriptRepository();
+        courseRepository = new CourseRepository();
 
         handleCourseApproval();
     }
@@ -43,14 +46,15 @@ public class ApprovalCoursesSelectedController {
 
             if (approvedCourses.size() == currentCourseEnrollment.getSelectedCourseList().size()) {
                 // all approved
-                courseEnrollmentRepository.updateEnrollment(currentCourseEnrollment.getStudentId(),
+                currentCourseEnrollment = courseEnrollmentRepository.updateEnrollment(currentCourseEnrollment.getStudentId(),
                         approvedCourses,
                         rejectedCourses,
                         ApprovalState.Approved);
                 updateTranscript(currentCourseEnrollment);
+                updateCurrentQuota(currentCourseEnrollment);
             } else {
                 // some approved some rejected
-                courseEnrollmentRepository.updateEnrollment(currentCourseEnrollment.getStudentId(),
+                currentCourseEnrollment = courseEnrollmentRepository.updateEnrollment(currentCourseEnrollment.getStudentId(),
                         approvedCourses,
                         rejectedCourses,
                         ApprovalState.Rejected);
@@ -108,6 +112,15 @@ public class ApprovalCoursesSelectedController {
 
     }
 
+    private void updateCurrentQuota(CourseEnrollment courseEnrollment) {
+        try {
+            courseRepository.updateCurrentQuota(courseEnrollment);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // TODO: SHOULD WE ADD TRY CATCH?
     private void updateTranscript(CourseEnrollment courseEnrollment) throws IOException, UserNotFoundException {
         transcriptRepository.updateTranscript(courseEnrollment);
     }

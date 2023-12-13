@@ -2,15 +2,12 @@ package core.repositories;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
 
 import core.database.abstracts.DatabaseManager;
 import core.enums.ApprovalState;
-import core.exceptions.UserNotFoundException;
 import core.general_providers.AppConstant;
 import core.general_providers.InstanceManager;
-import core.general_providers.SessionController;
-import core.models.abstracts.User;
 import core.models.concretes.Course;
 import core.models.concretes.CourseEnrollment;
 
@@ -67,7 +64,8 @@ public class CourseRepository {
     
         if (course != null) {
                 return course.getQuota();
-        } else {                // Hata fırlat
+        } else {               
+             // Hata fırlat
             throw new IllegalArgumentException("Course with code " + courseCode + " not found.");
             }
         }
@@ -132,29 +130,32 @@ public class CourseRepository {
         return matchedCourses;
     }
 
-    public void updateCurrentQuota(CourseEnrollment courseEnrollment) throws IOException{
-    if (courseEnrollment.getApprovalState() == ApprovalState.Approved) {
-        ArrayList<Course> selectedCourses = courseEnrollment.getSelectedCourseList();
-
-        for (Course selectedCourse : selectedCourses) {
-            // Find the corresponding course in the repository
-            Course repositoryCourse = findCourseByCode(selectedCourse.getCourseCode());
-
-            // Update the currentQuota for the course in the repository
-            if (repositoryCourse != null) {
-                repositoryCourse.setCurrentQuota(repositoryCourse.getCurrentQuota() + 1);
-
-                // Save the updated course back to the repository
-                databaseManager.write(
-                        path + repositoryCourse.getSemester() + "/" + repositoryCourse.getCourseCode() + ".json",
-                        repositoryCourse);
-            } else {
-                System.out.println("Course with code " + selectedCourse.getCourseCode() + " not found in the repository.");
+    public void updateCurrentQuota(CourseEnrollment courseEnrollment) throws IOException {
+        System.out.println("updateCurrentQuota is called.");
+    
+        ArrayList<Course> approvedCourses = courseEnrollment.getApprovedCourseList();
+    
+        if (approvedCourses != null && !approvedCourses.isEmpty()) {
+            for (Course selectedCourse : approvedCourses) {
+                // Find the corresponding course in the repository
+                Course repositoryCourse = findCourseByCode(selectedCourse.getCourseCode());
+    
+                // Update the currentQuota for the course in the repository
+                if (repositoryCourse != null) {
+                    repositoryCourse.setCurrentQuota(repositoryCourse.getCurrentQuota() + 1);
+    
+                    // Save the updated course back to the repository
+                    databaseManager.write(
+                            path + repositoryCourse.getSemester() + "/" + repositoryCourse.getCourseCode() + ".json",
+                            repositoryCourse);
+                } else {
+                    System.out.println("Course with code " + selectedCourse.getCourseCode() + " not found in the repository.");
+                }
             }
+        } else {
+            System.out.println("No approved courses found for the student.");
         }
-    } else {
-        System.out.println("Student's enrollment is not approved by the advisor.");
     }
-    }
+    
       
 }
