@@ -9,6 +9,7 @@ public class Semester {
     private Map<String, CourseGrade> listOfCoursesTaken;
     private int creditsTaken;
     private double yano;
+    private double gano;
     private int semesterNo;
 
     public Semester(String id, Map<String, CourseGrade> listOfCoursesTaken,
@@ -36,6 +37,10 @@ public class Semester {
         return yano;
     }
 
+    public double getGano() {
+        return gano;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -50,6 +55,10 @@ public class Semester {
 
     public void setYano(double yano) {
         this.yano = yano;
+    }
+
+    public void setGano(double gano) {
+        this.gano = gano;
     }
 
     public int getSemesterNo() {

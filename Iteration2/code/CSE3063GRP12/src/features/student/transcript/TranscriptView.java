@@ -3,11 +3,9 @@ package features.student.transcript;
 import core.models.concretes.Transcript;
 
 public class TranscriptView {
+    TranscriptController transcriptController;
     public void showTranscript(Transcript transcript) {
-        System.out.println("==========================================================================");
-
-        System.out.println("==========================================================================");
-
+        transcriptController = new TranscriptController();
     }
 
     public void showQuitMessage() {

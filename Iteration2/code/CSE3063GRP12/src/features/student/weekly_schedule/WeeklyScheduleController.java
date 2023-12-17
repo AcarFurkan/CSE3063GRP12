@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import core.models.concretes.Course;
+import core.models.concretes.CourseEnrollment;
 import core.repositories.CourseRepository;
 
 import core.general_providers.SessionController;
@@ -15,6 +16,7 @@ public class WeeklyScheduleController {
 
     private WeeklyScheduleView weeklyScheduleView;
     private CourseRepository courseRepository;
+    private CourseEnrollment courseEnrollment;
 
     public WeeklyScheduleController() {
         this.weeklyScheduleView = new WeeklyScheduleView();
