@@ -130,32 +130,54 @@ public class CourseRepository {
         return matchedCourses;
     }
 
+   
     public void updateCurrentQuota(CourseEnrollment courseEnrollment) throws IOException {
-        System.out.println("updateCurrentQuota is called.");
+        if (courseEnrollment == null) {
+            System.out.println("CourseEnrollment is null.");
+            return;
+        }
+        
+        //Test
+        //System.out.println("updateCurrentQuota is called.");
     
         ArrayList<Course> approvedCourses = courseEnrollment.getApprovedCourseList();
     
-        if (approvedCourses != null && !approvedCourses.isEmpty()) {
-            for (Course selectedCourse : approvedCourses) {
-                // Find the corresponding course in the repository
-                Course repositoryCourse = findCourseByCode(selectedCourse.getCourseCode());
-    
-                // Update the currentQuota for the course in the repository
-                if (repositoryCourse != null) {
-                    repositoryCourse.setCurrentQuota(repositoryCourse.getCurrentQuota() + 1);
-    
-                    // Save the updated course back to the repository
-                    databaseManager.write(
-                            path + repositoryCourse.getSemester() + "/" + repositoryCourse.getCourseCode() + ".json",
-                            repositoryCourse);
-                } else {
-                    System.out.println("Course with code " + selectedCourse.getCourseCode() + " not found in the repository.");
-                }
-            }
-        } else {
+        if (approvedCourses == null || approvedCourses.isEmpty()) {
             System.out.println("No approved courses found for the student.");
+            return;
+        }
+    
+        for (Course selectedCourse : approvedCourses) {
+            String courseCode = selectedCourse.getCourseCode();
+            System.out.println("Processing course with code: " + courseCode);
+    
+            // Find the corresponding course in the repository
+            Course repositoryCourse = findCourseByCode(courseCode);
+    
+            if (repositoryCourse != null) {
+                // Update the currentQuota for the course in the repository
+                int currentQuota = repositoryCourse.getCurrentQuota();
+                int updatedQuota = currentQuota + 1;
+    
+                //Test
+                // System.out.println("Current Quota: " + currentQuota);
+                // System.out.println("Updated Quota: " + updatedQuota);
+    
+                repositoryCourse.setCurrentQuota(updatedQuota);
+    
+                // Save the updated course back to the repository
+                databaseManager.write(
+                        path + repositoryCourse.getSemester() + "/" + repositoryCourse.getCourseCode() + ".json",
+                        repositoryCourse);
+
+                //Test
+                //System.out.println("Quota updated successfully for course: " + courseCode);
+            } else {
+                System.out.println("Course with code " + courseCode + " not found in the repository.");
+            }
         }
     }
+    
     
       
 }

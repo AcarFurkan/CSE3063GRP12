@@ -106,40 +106,51 @@ public class CourseRegistrationController {
 	private ArrayList<Course> arrangeCoursesForStudent(Transcript transcript, ArrayList<Course> currentSemesterCourseList) throws IOException {
 		Map<Integer, Semester> semesters = transcript.getListOfSemesters();
 		ArrayList<Course> availableCourses = new ArrayList<>();
-
+		boolean allCoursesFullQuota = true; 
+	
 		for (Course courseThisSemester : currentSemesterCourseList) {
-			if (semesters == null || semesters.values() == null || semesters.values().size() == 0) {
-				availableCourses.add(courseThisSemester);
-			} else {
-				ArrayList<Course> coursesToCheckQuota = new ArrayList<>();
-            	coursesToCheckQuota.add(courseThisSemester);
-				// Check if the course has prerequisites, and if the student has received FF or FD in any of them, add them to the list
-				if (courseThisSemester.getPrerequisites() != null && !courseThisSemester.getPrerequisites().isEmpty()&&
-				checkQuota(coursesToCheckQuota)) {
-					addFailedPrerequisites(courseThisSemester.getPrerequisites(), semesters, availableCourses);
-				} 
-				// if the course does not have any prerequisites, add it
-				else availableCourses.add(courseThisSemester); 
+			// Check if the course has prerequisites, and if the student has received FF or FD in any of them, add them to the list
+			if (courseThisSemester.getPrerequisites() != null && !courseThisSemester.getPrerequisites().isEmpty()) {
+				addFailedPrerequisites(courseThisSemester.getPrerequisites(), semesters, availableCourses);
 			}
-		}	
-		return availableCourses;
-	}
-	
-	//Bu method currentQuotanın quotayı aşmadığını tespit edicek.
-	private boolean checkQuota(ArrayList<Course> selectedCourseList) throws IOException {
-		//courseRepository objecti oluşturduk.
-		CourseRepository courseRepository = new CourseRepository();
-	
-		for (Course selectedCourse : selectedCourseList) {
-			int quota = courseRepository.getQuota(selectedCourse.getCourseCode());
-			int currentQuota = courseRepository.getCurrentQuota(selectedCourse.getCourseCode());
-	
-			if (currentQuota >= quota) {
-				System.out.println("Quota is full for course: " + selectedCourse.getCourseCode());
-				return false;
+			// if the course does not have any prerequisites, add it
+			else {
+				// Check if the quotas of current semesters courses is available
+				if (checkQuota(courseThisSemester)) {
+					availableCourses.add(courseThisSemester);
+					allCoursesFullQuota = false; // At least one course has available quota
+				} else {
+					// If the quotas of all courses is not available, print a message
+					System.out.println("Quota is full for course: " + courseThisSemester.getCourseCode());
+				}
 			}
 		}
 	
+		// Check if all courses have full quotas
+		if (allCoursesFullQuota) {
+			System.out.println("All courses have full quotas. Cannot make selections.");
+			navigateToMenu(); // Navigate to menu directly if all courses quotas are full
+		}
+	
+		return availableCourses;
+	}
+	
+	
+	
+
+	private boolean checkQuota(Course course) throws IOException {
+		// Create a CourseRepository object
+		CourseRepository courseRepository = new CourseRepository();
+	
+		// Get the quota and currentQuota for the selected course from the CourseRepository
+		int quota = courseRepository.getQuota(course.getCourseCode());
+		int currentQuota = courseRepository.getCurrentQuota(course.getCourseCode());
+	
+		// Check if the currentQuota is greater than or equal to the quota
+		if (currentQuota >= quota) {
+			// If the quota is full, print a message and return false
+			return false;
+		}
 		return true;
 	}
 

@@ -17,6 +17,7 @@ public class CourseEnrollment {
         this.selectedCourseList = selectedCourseList;
         this.studentId = studentId;
         this.approvalState = approvalState;
+        this.approvedCourseList = new ArrayList<>();
 
     }
 
@@ -55,6 +56,7 @@ public class CourseEnrollment {
         this.approvalState = approvalState;
     }
 
+    //Burada bir sıkıntı var
     public ArrayList<Course> getApprovedCourseList() {
         return approvedCourseList;
     }
