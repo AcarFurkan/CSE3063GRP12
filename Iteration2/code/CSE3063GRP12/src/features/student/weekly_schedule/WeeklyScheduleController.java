@@ -10,6 +10,7 @@ import core.repositories.CourseRepository;
 import core.general_providers.SessionController;
 import core.general_providers.TerminalManager;
 import features.main_menu.MenuController;
+import features.student.course_registration.CourseRegistrationController;
 import core.models.concretes.Student;
 
 public class WeeklyScheduleController {
@@ -17,15 +18,16 @@ public class WeeklyScheduleController {
     private WeeklyScheduleView weeklyScheduleView;
     private CourseRepository courseRepository;
     private CourseEnrollment courseEnrollment;
+    private CourseRegistrationController courseRegistrationController;
 
     public WeeklyScheduleController() {
         this.weeklyScheduleView = new WeeklyScheduleView();
         this.courseRepository = new CourseRepository();
+        this.courseRegistrationController = new CourseRegistrationController();
         handleWeeklySchedule();
     }
 
-    private ArrayList<Course> fetchCourses() throws IOException {
-
+    private ArrayList<Course> fetchCourses(CourseRegistrationController courseRegistrationController) throws IOException {
         // UNCOMMENT:
         Student currentStudent = (Student) (SessionController.getInstance().getCurrentUser());
         int currentSemester = currentStudent.getTranscript().getCurrentSemester();
@@ -44,7 +46,7 @@ public class WeeklyScheduleController {
 
     private void handleWeeklySchedule() {
         try {
-            ArrayList<Course> currentCourses = fetchCourses();
+            ArrayList<Course> currentCourses = fetchCourses(courseRegistrationController);
             weeklyScheduleView.showWeeklySchedule(currentCourses);
             if (getUserInput().equals("q"))
                 navigateToMenu();
