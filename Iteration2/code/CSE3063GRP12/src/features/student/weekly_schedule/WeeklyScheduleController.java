@@ -48,8 +48,15 @@ public class WeeklyScheduleController {
         try {
             ArrayList<Course> currentCourses = fetchCourses(courseRegistrationController);
             weeklyScheduleView.showWeeklySchedule(currentCourses);
-            if (getUserInput().equals("q"))
-                navigateToMenu();
+            while (true) {
+                String userInput = getUserInput();
+                if ("q".equals(userInput)) {
+                    navigateToMenu();
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter 'q'.");
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
