@@ -11,4 +11,8 @@ public class TranscriptView {
     public void showQuitMessage() {
         System.out.print("Press q to return Main Menu: ");
     }
+
+    public void showErrorMessage(Exception exception) {
+        System.out.println("Error: " + exception.getMessage());
+    }
 }
