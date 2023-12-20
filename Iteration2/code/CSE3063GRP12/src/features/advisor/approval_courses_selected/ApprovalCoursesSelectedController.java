@@ -3,17 +3,19 @@ package features.advisor.approval_courses_selected;
 import core.repositories.TranscriptRepository;
 import features.main_menu.MenuController;
 import core.repositories.CourseEnrollmentRepository;
+import core.repositories.CourseRepository;
 import core.models.concretes.Course;
 import core.models.concretes.CourseEnrollment;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
+import core.repositories.NotificationRepositories;
 import core.enums.ApprovalState;
 import core.exceptions.UnexpectedInputException;
 import core.exceptions.UserNotFoundException;
-import core.exceptions.WrongNumberOfCoursesSelectedException;
 import core.general_providers.TerminalManager;
 
 public class ApprovalCoursesSelectedController {
@@ -21,39 +23,80 @@ public class ApprovalCoursesSelectedController {
     private CourseEnrollment currentCourseEnrollment;
     private CourseEnrollmentRepository courseEnrollmentRepository;
     private TranscriptRepository transcriptRepository;
+    private CourseRepository courseRepository;
+    private NotificationRepositories notificationRepositories;
 
     public ApprovalCoursesSelectedController(CourseEnrollment currentCourseEnrollment) {
         this.currentCourseEnrollment = currentCourseEnrollment;
         approvalCoursesSelectedView = new ApprovalCoursesSelectedView();
         courseEnrollmentRepository = new CourseEnrollmentRepository();
         transcriptRepository = new TranscriptRepository();
+        courseRepository = new CourseRepository();
+		notificationRepositories = new NotificationRepositories();
 
         handleCourseApproval();
     }
 
     private void handleCourseApproval() {
         try {
+             // Filter out courses that are already approved
+            ArrayList<Course> coursesToReview = new ArrayList<>();
+            for (Course course : currentCourseEnrollment.getSelectedCourseList()) {
+                if (!isCourseInList(course, currentCourseEnrollment.getApprovedCourseList()) &&
+                    !isCourseInList(course, currentCourseEnrollment.getRejectedCourseList())) {
+                    coursesToReview.add(course);
+                }
+            }
 
-            approvalCoursesSelectedView.showSelectedCourses(currentCourseEnrollment.getSelectedCourseList());
+            // Show the filtered courses to the advisor
+            approvalCoursesSelectedView.showSelectedCourses(coursesToReview);
 
             ArrayList<Course>[] allCourses = getAdvisorCourseSelections(
-                    currentCourseEnrollment.getSelectedCourseList());
+                    coursesToReview);
             ArrayList<Course> approvedCourses = allCourses[0];
             ArrayList<Course> rejectedCourses = allCourses[1];
 
-            if (approvedCourses.size() == currentCourseEnrollment.getSelectedCourseList().size()) {
-                // all approved
-                courseEnrollmentRepository.updateEnrollment(currentCourseEnrollment.getStudentId(),
+            if (approvedCourses.size() == coursesToReview.size()) {
+                // all approved, first enrollment
+                if(currentCourseEnrollment.getApprovedCourseList() == null){
+                    courseEnrollmentRepository.updateEnrollment(currentCourseEnrollment, currentCourseEnrollment.getStudentId(),
                         approvedCourses,
                         rejectedCourses,
                         ApprovalState.Approved);
+                }
+                else{
+                    currentCourseEnrollment.getApprovedCourseList().addAll(approvedCourses);
+                    courseEnrollmentRepository.updateEnrollment(currentCourseEnrollment,currentCourseEnrollment.getStudentId(),
+                            currentCourseEnrollment.getApprovedCourseList(),
+                            currentCourseEnrollment.getRejectedCourseList(),
+                            ApprovalState.Approved);
+                }
                 updateTranscript(currentCourseEnrollment);
+                updateCurrentQuota(currentCourseEnrollment); 
+                sendNotification("accepted");
+
             } else {
-                // some approved some rejected
-                courseEnrollmentRepository.updateEnrollment(currentCourseEnrollment.getStudentId(),
+                // some approved some rejected and has previous approved/rejected courses
+                if(currentCourseEnrollment.getApprovedCourseList() != null && currentCourseEnrollment.getRejectedCourseList() != null){
+                    currentCourseEnrollment.getApprovedCourseList().addAll(approvedCourses);
+                    currentCourseEnrollment.getRejectedCourseList().addAll(rejectedCourses);
+                    courseEnrollmentRepository.updateEnrollment(currentCourseEnrollment,currentCourseEnrollment.getStudentId(),
+                            currentCourseEnrollment.getApprovedCourseList(),
+                            currentCourseEnrollment.getRejectedCourseList(),
+                            ApprovalState.Rejected);
+                    sendNotification("rejected, please check your course registreation module!");
+                }
+
+                else{
+                    // some approved som rejected, first enrollment
+                    courseEnrollmentRepository.updateEnrollment(currentCourseEnrollment, currentCourseEnrollment.getStudentId(),
                         approvedCourses,
                         rejectedCourses,
                         ApprovalState.Rejected);
+                    sendNotification("some of your courses are rejected. Please check in course registeration module");
+
+                    }
+                    updateCurrentQuota(currentCourseEnrollment);
             }
             navigateToMenu();
 
@@ -61,6 +104,15 @@ public class ApprovalCoursesSelectedController {
             approvalCoursesSelectedView.showErrorMessage(e);
         }
 
+    }
+
+    private void sendNotification(String message) {
+        notificationRepositories.updateNotification(currentCourseEnrollment.getStudentId(), "Your request is "+ message);
+	}
+
+    private boolean isCourseInList(Course course, ArrayList<Course> courseList) {
+        return courseList != null && courseList.stream()
+                .anyMatch(existingCourse -> existingCourse.getId().equals(course.getId()));
     }
 
     private ArrayList<Course>[] getAdvisorCourseSelections(ArrayList<Course> courseList) throws IOException {
@@ -84,18 +136,16 @@ public class ApprovalCoursesSelectedController {
                 }
 
                 String[] arraySelectedCourseIndicesString = selectedCourseIndexes.split("[,\\s.]+");
-                Arrays.sort(arraySelectedCourseIndicesString);
+                Arrays.sort(arraySelectedCourseIndicesString, Comparator.comparingInt(Integer::parseInt));
                 int iterApprovedCoursesIndex = 0;
                 for (int i = 0; i < courseList.size(); i++) {
-                    if(iterApprovedCoursesIndex < arraySelectedCourseIndicesString.length){
-                        if (Integer.parseInt(arraySelectedCourseIndicesString[iterApprovedCoursesIndex]) == i + 1) {
-                            approvedCourses.add(courseList.get(i));
-                            iterApprovedCoursesIndex++;
-                        }else {
-                            rejectedCourses.add(courseList.get(i));
-                        }
-                    }
-                    else {
+                    if (iterApprovedCoursesIndex < arraySelectedCourseIndicesString.length &&
+                        Integer.parseInt(arraySelectedCourseIndicesString[iterApprovedCoursesIndex]) == i + 1) {
+                        // Course is approved
+                        approvedCourses.add(courseList.get(i));
+                        iterApprovedCoursesIndex++;
+                    } else {
+                        // Course is rejected
                         rejectedCourses.add(courseList.get(i));
                     }
                 }
@@ -106,6 +156,14 @@ public class ApprovalCoursesSelectedController {
             }
         }
 
+    }
+
+    private void updateCurrentQuota(CourseEnrollment courseEnrollment){
+        try {
+            courseRepository.updateCurrentQuota(courseEnrollment);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateTranscript(CourseEnrollment courseEnrollment) throws IOException, UserNotFoundException {
