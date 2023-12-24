@@ -8,9 +8,11 @@ public class MenuView {
  public void showMenuList(ArrayList<String> menuList) {
     // Simply print out each menu item
     // i for indexing
+    System.out.println("###===>>> Main Menu <<<===###");
     for (int i=1; i<=menuList.size(); i++) {
-        System.out.println(i + ". " + menuList.get(i-1));
+        System.out.println("\t[" + i + "] " + menuList.get(i-1));
     }
+    System.out.println("###===>>> Main Menu <<<===###");
 }
 
 // show error message

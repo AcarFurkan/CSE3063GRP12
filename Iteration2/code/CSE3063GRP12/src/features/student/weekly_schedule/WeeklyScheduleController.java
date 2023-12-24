@@ -22,7 +22,7 @@ public class WeeklyScheduleController {
         handleWeeklySchedule();
     }
 
-    private ArrayList<Course> fetchCourses() {
+    private ArrayList<Course> fetchCourses() throws IOException {
 
         // UNCOMMENT:
         Student currentStudent = (Student) (SessionController.getInstance().getCurrentUser());
