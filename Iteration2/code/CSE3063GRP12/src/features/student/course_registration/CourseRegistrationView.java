@@ -7,17 +7,22 @@ import core.models.concretes.Course;
 
 public class CourseRegistrationView extends Exception {
 	public void showCourseList(ArrayList<Course> courseList) {
-		System.out.println("||=====================================================|| Course Registration ||=====================================================||");
-    	System.out.println("###======List of Available Courses:");
-		System.out.println("=======================================================================================================================================");
-		System.out.printf("%-3s\t%-20s %-50s %-8s %-8s %-8s\n", " No.", "Course Code", "Course Name", "Quota", "Semester No.", "ECTS");
-		System.out.println("=======================================================================================================================================");
+		System.out.println("||=============================================================|| Course Registration ||=============================================================||");
+		System.out.println("###======List of Available Courses:");
+		System.out.println("=======================================================================================================================================================");
+		System.out.printf("%-3s\t%-20s %-50s %-8s\t%-8s\t%-8s\t%-8s\t%-8s\n", " No.", "Course Code", "Course Name", "Taken Quota", "Free Quota", "Total Quota", "Semester No.", "ECTS");
+		System.out.println("=======================================================================================================================================================");
+	
 		for (int i = 0; i < courseList.size(); i++) {
-			System.out.printf(" [%-1d]\t%-20s %-52s %-16d %-22d %-8d %-8d\n", i + 1, courseList.get(i).getCourseCode(),
-            courseList.get(i).getName(), courseList.get(i).getQuota(), courseList.get(i).getCurrentQuota(), courseList.get(i).getSemester() ,courseList.get(i).getCredit());
+			System.out.printf(" [%-1d]\t%-20s %-52s %-10d\t%-10d\t%-10d\t%-10d\t%-10d\n", i + 1, courseList.get(i).getCourseCode(),
+					courseList.get(i).getName(), courseList.get(i).getCurrentQuota(), (courseList.get(i).getQuota() - courseList.get(i).getCurrentQuota()),
+					courseList.get(i).getQuota(), courseList.get(i).getSemester(), courseList.get(i).getCredit());
 		}
-		System.out.println("=======================================================================================================================================");
+	
+		System.out.println("=======================================================================================================================================================");
+		System.out.println("||=============================================================|| Course Registration ||=============================================================||");
 	}
+	
 
 	public void showCourseList(ArrayList<Course> courseList, ApprovalState approvalState) {
 		/*
