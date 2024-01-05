@@ -1,4 +1,4 @@
-from ....core.exceptions import UnexpectedInputException
+from ....core.exceptions.UnexpectedInputException import UnexpectedInputException
 
 class AdvisorStudentListView:
     def showStudentList(self, studentArrayList):
