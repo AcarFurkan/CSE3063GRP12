@@ -4,6 +4,7 @@ public class LoginView {
     
     // Prompt the user to enter their username
     public void displayUsername() {
+        System.out.println("===============================================================================================*** Welcome to Course Registration system ***===============================================================================================");
         System.out.print("Please enter your username: ");
     }
 
