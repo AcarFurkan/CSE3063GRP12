@@ -60,8 +60,8 @@ class TranscriptController:
 
                     print()
                     print("===========================================================================================================================================================================")
-                    print(">>---> Completed Credits: {}".format(semester.credits_completed))
-                    print(">>---> Taken Credits: {}".format(semester.credits_taken))
+                    print(">>---> Completed Credits: {}".format(semester.creditsCompleted))
+                    print(">>---> Taken Credits: {}".format(semester.creditsTaken))
                     print(">>---> Yano: {}".format(semester.yano))
                     print(">>---> Gano: {}".format(semester.gano))
                     print()
